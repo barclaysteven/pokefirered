@@ -178,6 +178,8 @@ const u16 gTypeGroup_Starter[] = {
     SPECIES_BULBASAUR,
     SPECIES_CHARMANDER,
     SPECIES_SQUIRTLE,
+    SPECIES_EEVEE,
+    SPECIES_PIKACHU,
 };
 
 const u16 gTypeGroup_Legendary[] = {
