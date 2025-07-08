@@ -34,6 +34,8 @@ struct WildEncounterData
 static EWRAM_DATA struct WildEncounterData sWildEncounterData = {};
 static EWRAM_DATA bool8 sWildEncountersDisabled = FALSE;
 
+
+// Forward declarations for functions used before definition
 static bool8 UnlockedTanobyOrAreNotInTanoby(void);
 static u32 GenerateUnownPersonalityByLetter(u8 letter);
 static bool8 IsWildLevelAllowedByRepel(u8 level);
@@ -43,6 +45,10 @@ static void ApplyCleanseTagEncounterRateMod(u32 *rate);
 static bool8 IsLeadMonHoldingCleanseTag(void);
 static u16 WildEncounterRandom(void);
 static void AddToWildEncounterRateBuff(u8 encouterRate);
+u8 ChooseWildMonIndex_Land(void);
+u8 ChooseWildMonIndex_WaterRock(void);
+u8 ChooseWildMonIndex_Fishing(u8 rod);
+const char *GetCurrentMapName(void);
 
 #include "data/pokemon/type_groups.h"
 
@@ -270,7 +276,8 @@ static bool8 DoGlobalWildEncounterDiceRoll(void)
 
 // Helper to find the type group encounter for a given map and encounter type
 static const TypeGroupEncounter *FindTypeGroupEncounter(const char *map, EncounterType encounterType) {
-    for (size_t i = 0; i < sizeof(gTypeGroupEncounters)/sizeof(gTypeGroupEncounters[0]); ++i) {
+    unsigned int i;
+    for (i = 0; i < sizeof(gTypeGroupEncounters)/sizeof(gTypeGroupEncounters[0]); ++i) {
         if (strcmp(gTypeGroupEncounters[i].map, map) == 0 && gTypeGroupEncounters[i].encounterType == encounterType) {
             return &gTypeGroupEncounters[i];
         }
