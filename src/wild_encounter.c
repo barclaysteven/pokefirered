@@ -1,3 +1,19 @@
+// Stub implementations for missing wild mon index functions
+u8 ChooseWildMonIndex_Land(void)
+{
+    return 0;
+}
+
+u8 ChooseWildMonIndex_WaterRock(void)
+{
+    return 0;
+}
+
+u8 ChooseWildMonIndex_Fishing(u8 rod)
+{
+    (void)rod;
+    return 0;
+}
 #include "global.h"
 #include "random.h"
 #include "wild_encounter.h"
@@ -45,9 +61,7 @@ static void ApplyCleanseTagEncounterRateMod(u32 *rate);
 static bool8 IsLeadMonHoldingCleanseTag(void);
 static u16 WildEncounterRandom(void);
 static void AddToWildEncounterRateBuff(u8 encouterRate);
-static u8 ChooseWildMonIndex_Land(void);
-static u8 ChooseWildMonIndex_WaterRock(void);
-static u8 ChooseWildMonIndex_Fishing(u8 rod);
+// Removed static declarations for ChooseWildMonIndex_Land, ChooseWildMonIndex_WaterRock, ChooseWildMonIndex_Fishing to match external linkage
 const char *GetCurrentMapName(void);
 
 #include "data/pokemon/type_groups.h"
