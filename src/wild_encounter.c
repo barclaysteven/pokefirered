@@ -45,12 +45,13 @@ static void ApplyCleanseTagEncounterRateMod(u32 *rate);
 static bool8 IsLeadMonHoldingCleanseTag(void);
 static u16 WildEncounterRandom(void);
 static void AddToWildEncounterRateBuff(u8 encouterRate);
-u8 ChooseWildMonIndex_Land(void);
-u8 ChooseWildMonIndex_WaterRock(void);
-u8 ChooseWildMonIndex_Fishing(u8 rod);
+static u8 ChooseWildMonIndex_Land(void);
+static u8 ChooseWildMonIndex_WaterRock(void);
+static u8 ChooseWildMonIndex_Fishing(u8 rod);
 const char *GetCurrentMapName(void);
 
 #include "data/pokemon/type_groups.h"
+#include "data/wild_encounters.h"
 
 static const u8 sUnownLetterSlots[][LAND_WILD_COUNT] = {
   //  A   A   A   A   A   A   A   A   A   A   A   ?
