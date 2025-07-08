@@ -44,7 +44,7 @@ static bool8 IsLeadMonHoldingCleanseTag(void);
 static u16 WildEncounterRandom(void);
 static void AddToWildEncounterRateBuff(u8 encouterRate);
 
-#include "data/wild_encounters.h"
+#include "data/pokemon/type_groups.h"
 
 static const u8 sUnownLetterSlots[][LAND_WILD_COUNT] = {
   //  A   A   A   A   A   A   A   A   A   A   A   ?
@@ -66,90 +66,6 @@ static const u8 sUnownLetterSlots[][LAND_WILD_COUNT] = {
 void DisableWildEncounters(bool8 state)
 {
     sWildEncountersDisabled = state;
-}
-
-static u8 ChooseWildMonIndex_Land(void)
-{
-    u8 rand = Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL;
-
-    if (rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_0)
-        return 0;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_0 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_1)
-        return 1;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_1 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_2)
-        return 2;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_2 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_3)
-        return 3;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_3 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_4)
-        return 4;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_4 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_5)
-        return 5;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_5 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_6)
-        return 6;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_6 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_7)
-        return 7;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_7 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_8)
-        return 8;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_8 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_9)
-        return 9;
-    else if (rand >= ENCOUNTER_CHANCE_LAND_MONS_SLOT_9 && rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_10)
-        return 10;
-    else
-        return 11;
-}
-
-static u8 ChooseWildMonIndex_WaterRock(void)
-{
-    u8 rand = Random() % ENCOUNTER_CHANCE_WATER_MONS_TOTAL;
-
-    if (rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_0)
-        return 0;
-    else if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SLOT_0 && rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_1)
-        return 1;
-    else if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SLOT_1 && rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_2)
-        return 2;
-    else if (rand >= ENCOUNTER_CHANCE_WATER_MONS_SLOT_2 && rand < ENCOUNTER_CHANCE_WATER_MONS_SLOT_3)
-        return 3;
-    else
-        return 4;
-}
-
-static u8 ChooseWildMonIndex_Fishing(u8 rod)
-{
-    u8 wildMonIndex = 0;
-    u8 rand = Random() % max(max(ENCOUNTER_CHANCE_FISHING_MONS_OLD_ROD_TOTAL, ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_TOTAL),
-                             ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_TOTAL);
-
-    switch (rod)
-    {
-    case OLD_ROD:
-        if (rand < ENCOUNTER_CHANCE_FISHING_MONS_OLD_ROD_SLOT_0)
-            wildMonIndex = 0;
-        else
-            wildMonIndex = 1;
-        break;
-    case GOOD_ROD:
-        if (rand < ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_2)
-            wildMonIndex = 2;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_2 && rand < ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_3)
-            wildMonIndex = 3;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_3 && rand < ENCOUNTER_CHANCE_FISHING_MONS_GOOD_ROD_SLOT_4)
-            wildMonIndex = 4;
-        break;
-    case SUPER_ROD:
-        if (rand < ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_5)
-            wildMonIndex = 5;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_5 && rand < ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_6)
-            wildMonIndex = 6;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_6 && rand < ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_7)
-            wildMonIndex = 7;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_7 && rand < ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_8)
-            wildMonIndex = 8;
-        if (rand >= ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_8 && rand < ENCOUNTER_CHANCE_FISHING_MONS_SUPER_ROD_SLOT_9)
-            wildMonIndex = 9;
-        break;
-    }
-    return wildMonIndex;
 }
 
 static u8 ChooseWildMonLevel(const struct WildPokemon * info)
@@ -352,95 +268,75 @@ static bool8 DoGlobalWildEncounterDiceRoll(void)
     return TRUE;
 }
 
+// Helper to find the type group encounter for a given map and encounter type
+static const TypeGroupEncounter *FindTypeGroupEncounter(const char *map, EncounterType encounterType) {
+    for (size_t i = 0; i < sizeof(gTypeGroupEncounters)/sizeof(gTypeGroupEncounters[0]); ++i) {
+        if (strcmp(gTypeGroupEncounters[i].map, map) == 0 && gTypeGroupEncounters[i].encounterType == encounterType) {
+            return &gTypeGroupEncounters[i];
+        }
+    }
+    return NULL;
+}
+
 bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
 {
-    u16 headerId;
     struct Roamer * roamer;
-
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
 
-    headerId = GetCurrentMapWildMonHeaderId();
-    if (headerId != HEADER_NONE)
+    // Get current map name (assume a function GetCurrentMapName() exists or use a macro/constant)
+    // You may need to implement this if not available
+    const char *mapName = GetCurrentMapName();
+    EncounterType encounterType = ENCOUNTER_LAND;
+    if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
+        encounterType = ENCOUNTER_LAND;
+    else if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_WATER
+             || (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) && MetatileBehavior_IsBridge(ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR)) == TRUE))
+        encounterType = ENCOUNTER_WATER;
+    else
+        return FALSE;
+
+    const TypeGroupEncounter *tg = FindTypeGroupEncounter(mapName, encounterType);
+    if (!tg)
+        return FALSE;
+
+    // Encounter rate logic (use a default or configurable value, or add to TypeGroupEncounter if needed)
+    u32 encounterRate = 30; // Example default, adjust as needed
+    if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
+        return FALSE;
+    if (DoWildEncounterRateTest(encounterRate, FALSE) != TRUE)
     {
-        if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
-        {
-            if (gWildMonHeaders[headerId].landMonsInfo == NULL)
-                return FALSE;
-            else if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
-                return FALSE;
-            if (DoWildEncounterRateTest(gWildMonHeaders[headerId].landMonsInfo->encounterRate, FALSE) != TRUE)
-            {
-                AddToWildEncounterRateBuff(gWildMonHeaders[headerId].landMonsInfo->encounterRate);
-                return FALSE;
-            }
-
-            else if (TryStartRoamerEncounter() == TRUE)
-            {
-                roamer = &gSaveBlock1Ptr->roamer;
-                if (!IsWildLevelAllowedByRepel(roamer->level))
-                {
-                    return FALSE;
-                }
-
-                StartRoamerBattle();
-                return TRUE;
-            }
-            else
-            {
-
-                // try a regular wild land encounter
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL) == TRUE)
-                {
-                    StartWildBattle();
-                    return TRUE;
-                }
-                else
-                {
-                    AddToWildEncounterRateBuff(gWildMonHeaders[headerId].landMonsInfo->encounterRate);
-                }
-            }
-        }
-        else if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_WATER
-                 || (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) && MetatileBehavior_IsBridge(ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR)) == TRUE))
-        {
-            if (gWildMonHeaders[headerId].waterMonsInfo == NULL)
-                return FALSE;
-            else if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
-                return FALSE;
-            else if (DoWildEncounterRateTest(gWildMonHeaders[headerId].waterMonsInfo->encounterRate, FALSE) != TRUE)
-            {
-                AddToWildEncounterRateBuff(gWildMonHeaders[headerId].waterMonsInfo->encounterRate);
-                return FALSE;
-            }
-
-            if (TryStartRoamerEncounter() == TRUE)
-            {
-                roamer = &gSaveBlock1Ptr->roamer;
-                if (!IsWildLevelAllowedByRepel(roamer->level))
-                {
-                    return FALSE;
-                }
-
-                StartRoamerBattle();
-                return TRUE;
-            }
-            else // try a regular surfing encounter
-            {
-                if (TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL) == TRUE)
-                {
-                    StartWildBattle();
-                    return TRUE;
-                }
-                else
-                {
-                    AddToWildEncounterRateBuff(gWildMonHeaders[headerId].waterMonsInfo->encounterRate);
-                }
-            }
-        }
+        AddToWildEncounterRateBuff(encounterRate);
+        return FALSE;
     }
 
-    return FALSE;
+    if (TryStartRoamerEncounter() == TRUE)
+    {
+        roamer = &gSaveBlock1Ptr->roamer;
+        if (!IsWildLevelAllowedByRepel(roamer->level))
+        {
+            return FALSE;
+        }
+        StartRoamerBattle();
+        return TRUE;
+    }
+
+    // Choose a random Pokémon from the type group
+    u8 slot = Random() % tg->typeGroupSize;
+    u16 species = tg->typeGroup[slot];
+    // Set level to lead Pokémon's level +/- 2, clamped to 2-100
+    u8 leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+    int minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+    int maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+    u8 level = minLevel + (Random() % (maxLevel - minLevel + 1));
+    if (IsWildLevelAllowedByRepel(level)) {
+        GenerateWildMon(species, level, slot);
+        StartWildBattle();
+        return TRUE;
+    } else {
+        AddToWildEncounterRateBuff(encounterRate);
+        return FALSE;
+    }
 }
 
 void RockSmashWildEncounter(void)
