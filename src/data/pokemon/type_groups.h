@@ -16,6 +16,194 @@ typedef struct {
     u32 typeGroupSize;
 } TypeGroupEncounter;
 
+
+// Arrays grouping Pokémon by their primary type (first type in species_info.h)
+#include "gba/types.h"
+#include "constants/species.h"
+
+
+// Kanto Pokémon grouped by their primary type
+const u16 gTypeGroup_Normal[] = {
+    SPECIES_PIDGEY,
+    SPECIES_RATTATA,
+    SPECIES_SPEAROW,
+    SPECIES_JIGGLYPUFF,
+    SPECIES_MEOWTH,
+    SPECIES_FARFETCHD,
+    SPECIES_DODUO,
+    SPECIES_CHANSEY,
+    SPECIES_KANGASKHAN,
+    SPECIES_TAUROS,
+    SPECIES_DITTO,
+    SPECIES_EEVEE,
+    SPECIES_PORYGON,
+    SPECIES_SNORLAX,
+};
+
+const u16 gTypeGroup_Fire[] = {
+    SPECIES_CHARMANDER,
+    SPECIES_VULPIX,
+    SPECIES_GROWLITHE,
+    SPECIES_PONYTA,
+    SPECIES_MAGMAR,
+    SPECIES_MOLTRES,
+};
+
+const u16 gTypeGroup_Water[] = {
+    SPECIES_SQUIRTLE,
+    SPECIES_PSYDUCK,
+    SPECIES_POLIWAG,
+    SPECIES_TENTACOOL,
+    SPECIES_SLOWPOKE,
+    SPECIES_SEEL,
+    SPECIES_SHELLDER,
+    SPECIES_KRABBY,
+    SPECIES_HORSEA,
+    SPECIES_GOLDEEN,
+    SPECIES_STARYU,
+    SPECIES_MAGIKARP,
+    SPECIES_LAPRAS,
+    SPECIES_OMANYTE,
+    SPECIES_KABUTO,
+};
+
+const u16 gTypeGroup_Grass[] = {
+    SPECIES_BULBASAUR,
+    SPECIES_ODDISH,
+    SPECIES_PARAS,
+    SPECIES_BELLSPROUT,
+    SPECIES_EXEGGCUTE,
+    SPECIES_TANGELA,
+};
+
+const u16 gTypeGroup_Electric[] = {
+    SPECIES_PIKACHU,
+    SPECIES_MAGNEMITE,
+    SPECIES_VOLTORB,
+    SPECIES_ELECTABUZZ,
+    SPECIES_ZAPDOS,
+};
+
+const u16 gTypeGroup_Ice[] = {
+    SPECIES_JYNX,
+    SPECIES_LAPRAS,
+    SPECIES_ARTICUNO,
+};
+
+const u16 gTypeGroup_Fighting[] = {
+    SPECIES_MANKEY,
+    SPECIES_MACHOP,
+    SPECIES_HITMONLEE,
+    SPECIES_HITMONCHAN,
+};
+
+const u16 gTypeGroup_Poison[] = {
+    SPECIES_BULBASAUR,
+    SPECIES_EKANS,
+    SPECIES_NIDORAN_F,
+    SPECIES_NIDORAN_M,
+    SPECIES_ZUBAT,
+    SPECIES_ODDISH,
+    SPECIES_VENONAT,
+    SPECIES_BELLSPROUT,
+    SPECIES_GRIMER,
+    SPECIES_KOFFING,
+};
+
+const u16 gTypeGroup_Ground[] = {
+    SPECIES_SANDSHREW,
+    SPECIES_DIGLETT,
+    SPECIES_GEODUDE,
+    SPECIES_ONIX,
+    SPECIES_CUBONE,
+    SPECIES_RHYHORN,
+};
+
+const u16 gTypeGroup_Flying[] = {
+    SPECIES_PIDGEY,
+    SPECIES_SPEAROW,
+    SPECIES_ZUBAT,
+    SPECIES_FARFETCHD,
+    SPECIES_DODUO,
+    SPECIES_SCYTHER,
+    SPECIES_AERODACTYL,
+    SPECIES_ARTICUNO,
+    SPECIES_ZAPDOS,
+    SPECIES_MOLTRES,
+    SPECIES_DRATINI,
+};
+
+const u16 gTypeGroup_Psychic[] = {
+    SPECIES_ABRA,
+    SPECIES_DROWZEE,
+    SPECIES_EXEGGCUTE,
+    SPECIES_MR_MIME,
+    SPECIES_JYNX,
+    SPECIES_MEWTWO,
+    SPECIES_MEW,
+};
+
+const u16 gTypeGroup_Bug[] = {
+    SPECIES_CATERPIE,
+    SPECIES_WEEDLE,
+    SPECIES_PARAS,
+    SPECIES_VENONAT,
+    SPECIES_SCYTHER,
+    SPECIES_PINSIR,
+};
+
+const u16 gTypeGroup_Rock[] = {
+    SPECIES_GEODUDE,
+    SPECIES_ONIX,
+    SPECIES_RHYHORN,
+    SPECIES_OMANYTE,
+    SPECIES_KABUTO,
+    SPECIES_AERODACTYL,
+};
+
+const u16 gTypeGroup_Ghost[] = {
+    SPECIES_GASTLY,
+};
+
+const u16 gTypeGroup_Dragon[] = {
+    SPECIES_DRATINI,
+};
+
+const u16 gTypeGroup_Steel[] = {
+    SPECIES_MAGNEMITE,
+};
+
+const u16 gTypeGroup_Starter[] = {
+    // Starters grouped by their primary type
+    SPECIES_BULBASAUR,
+    SPECIES_CHARMANDER,
+    SPECIES_SQUIRTLE,
+};
+
+const u16 gTypeGroup_WaterIce[] = {
+    // Water types
+    SPECIES_SQUIRTLE,
+    SPECIES_PSYDUCK,
+    SPECIES_POLIWAG,
+    SPECIES_TENTACOOL,
+    SPECIES_SLOWPOKE,
+    SPECIES_SEEL,
+    SPECIES_SHELLDER,
+    SPECIES_KRABBY,
+    SPECIES_HORSEA,
+    SPECIES_GOLDEEN,
+    SPECIES_STARYU,
+    SPECIES_MAGIKARP,
+    SPECIES_LAPRAS,
+    SPECIES_OMANYTE,
+    SPECIES_KABUTO,
+    // Ice types (add only if not already present)
+    SPECIES_JYNX,
+    SPECIES_ARTICUNO,
+};
+
+
+
 // Example associations (add more as needed)
 static const TypeGroupEncounter gTypeGroupEncounters[] = {
     // Associations for all maps in wild_encounters.json
@@ -233,190 +421,4 @@ static const TypeGroupEncounter gTypeGroupEncounters[] = {
     {"MAP_SIX_ISLAND_ALTERING_CAVE", ENCOUNTER_LAND, gTypeGroup_Normal, sizeof(gTypeGroup_Normal)/sizeof(u16)},
     {"MAP_SIX_ISLAND_ALTERING_CAVE", ENCOUNTER_LAND, gTypeGroup_Normal, sizeof(gTypeGroup_Normal)/sizeof(u16)},
     // ... Add all other maps from wild_encounters.json here, associating with the most relevant type group and encounter type ...
-};
-
-
-// Arrays grouping Pokémon by their primary type (first type in species_info.h)
-#include "gba/types.h"
-#include "constants/species.h"
-
-
-// Kanto Pokémon grouped by their primary type
-const u16 gTypeGroup_Normal[] = {
-    SPECIES_PIDGEY,
-    SPECIES_RATTATA,
-    SPECIES_SPEAROW,
-    SPECIES_JIGGLYPUFF,
-    SPECIES_MEOWTH,
-    SPECIES_FARFETCHD,
-    SPECIES_DODUO,
-    SPECIES_CHANSEY,
-    SPECIES_KANGASKHAN,
-    SPECIES_TAUROS,
-    SPECIES_DITTO,
-    SPECIES_EEVEE,
-    SPECIES_PORYGON,
-    SPECIES_SNORLAX,
-};
-
-const u16 gTypeGroup_Fire[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
-    SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
-};
-
-const u16 gTypeGroup_Water[] = {
-    SPECIES_SQUIRTLE,
-    SPECIES_PSYDUCK,
-    SPECIES_POLIWAG,
-    SPECIES_TENTACOOL,
-    SPECIES_SLOWPOKE,
-    SPECIES_SEEL,
-    SPECIES_SHELLDER,
-    SPECIES_KRABBY,
-    SPECIES_HORSEA,
-    SPECIES_GOLDEEN,
-    SPECIES_STARYU,
-    SPECIES_MAGIKARP,
-    SPECIES_LAPRAS,
-    SPECIES_OMANYTE,
-    SPECIES_KABUTO,
-};
-
-const u16 gTypeGroup_Grass[] = {
-    SPECIES_BULBASAUR,
-    SPECIES_ODDISH,
-    SPECIES_PARAS,
-    SPECIES_BELLSPROUT,
-    SPECIES_EXEGGCUTE,
-    SPECIES_TANGELA,
-};
-
-const u16 gTypeGroup_Electric[] = {
-    SPECIES_PIKACHU,
-    SPECIES_MAGNEMITE,
-    SPECIES_VOLTORB,
-    SPECIES_ELECTABUZZ,
-    SPECIES_ZAPDOS,
-};
-
-const u16 gTypeGroup_Ice[] = {
-    SPECIES_JYNX,
-    SPECIES_LAPRAS,
-    SPECIES_ARTICUNO,
-};
-
-const u16 gTypeGroup_Fighting[] = {
-    SPECIES_MANKEY,
-    SPECIES_MACHOP,
-    SPECIES_HITMONLEE,
-    SPECIES_HITMONCHAN,
-};
-
-const u16 gTypeGroup_Poison[] = {
-    SPECIES_BULBASAUR,
-    SPECIES_EKANS,
-    SPECIES_NIDORAN_F,
-    SPECIES_NIDORAN_M,
-    SPECIES_ZUBAT,
-    SPECIES_ODDISH,
-    SPECIES_VENONAT,
-    SPECIES_BELLSPROUT,
-    SPECIES_GRIMER,
-    SPECIES_KOFFING,
-};
-
-const u16 gTypeGroup_Ground[] = {
-    SPECIES_SANDSHREW,
-    SPECIES_DIGLETT,
-    SPECIES_GEODUDE,
-    SPECIES_ONIX,
-    SPECIES_CUBONE,
-    SPECIES_RHYHORN,
-};
-
-const u16 gTypeGroup_Flying[] = {
-    SPECIES_PIDGEY,
-    SPECIES_SPEAROW,
-    SPECIES_ZUBAT,
-    SPECIES_FARFETCHD,
-    SPECIES_DODUO,
-    SPECIES_SCYTHER,
-    SPECIES_AERODACTYL,
-    SPECIES_ARTICUNO,
-    SPECIES_ZAPDOS,
-    SPECIES_MOLTRES,
-    SPECIES_DRATINI,
-};
-
-const u16 gTypeGroup_Psychic[] = {
-    SPECIES_ABRA,
-    SPECIES_DROWZEE,
-    SPECIES_EXEGGCUTE,
-    SPECIES_MR_MIME,
-    SPECIES_JYNX,
-    SPECIES_MEWTWO,
-    SPECIES_MEW,
-};
-
-const u16 gTypeGroup_Bug[] = {
-    SPECIES_CATERPIE,
-    SPECIES_WEEDLE,
-    SPECIES_PARAS,
-    SPECIES_VENONAT,
-    SPECIES_SCYTHER,
-    SPECIES_PINSIR,
-};
-
-const u16 gTypeGroup_Rock[] = {
-    SPECIES_GEODUDE,
-    SPECIES_ONIX,
-    SPECIES_RHYHORN,
-    SPECIES_OMANYTE,
-    SPECIES_KABUTO,
-    SPECIES_AERODACTYL,
-};
-
-const u16 gTypeGroup_Ghost[] = {
-    SPECIES_GASTLY,
-};
-
-const u16 gTypeGroup_Dragon[] = {
-    SPECIES_DRATINI,
-};
-
-const u16 gTypeGroup_Steel[] = {
-    SPECIES_MAGNEMITE,
-};
-
-const u16 gTypeGroup_Starter[] = {
-    // Starters grouped by their primary type
-    SPECIES_BULBASAUR,
-    SPECIES_CHARMANDER,
-    SPECIES_SQUIRTLE,
-};
-
-const u16 gTypeGroup_WaterIce[] = {
-    // Water types
-    SPECIES_SQUIRTLE,
-    SPECIES_PSYDUCK,
-    SPECIES_POLIWAG,
-    SPECIES_TENTACOOL,
-    SPECIES_SLOWPOKE,
-    SPECIES_SEEL,
-    SPECIES_SHELLDER,
-    SPECIES_KRABBY,
-    SPECIES_HORSEA,
-    SPECIES_GOLDEEN,
-    SPECIES_STARYU,
-    SPECIES_MAGIKARP,
-    SPECIES_LAPRAS,
-    SPECIES_OMANYTE,
-    SPECIES_KABUTO,
-    // Ice types (add only if not already present)
-    SPECIES_JYNX,
-    SPECIES_ARTICUNO,
 };

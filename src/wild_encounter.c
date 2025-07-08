@@ -280,14 +280,24 @@ static const TypeGroupEncounter *FindTypeGroupEncounter(const char *map, Encount
 
 bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
 {
-    struct Roamer * roamer;
+    struct Roamer *roamer;
+    const char *mapName;
+    EncounterType encounterType;
+    const TypeGroupEncounter *tg;
+    u32 encounterRate;
+    u8 slot;
+    u16 species;
+    u8 leadLevel;
+    int minLevel;
+    int maxLevel;
+    u8 level;
+
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
 
     // Get current map name (assume a function GetCurrentMapName() exists or use a macro/constant)
-    // You may need to implement this if not available
-    const char *mapName = GetCurrentMapName();
-    EncounterType encounterType = ENCOUNTER_LAND;
+    mapName = GetCurrentMapName();
+    encounterType = ENCOUNTER_LAND;
     if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
         encounterType = ENCOUNTER_LAND;
     else if (ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_WATER
@@ -296,12 +306,12 @@ bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
     else
         return FALSE;
 
-    const TypeGroupEncounter *tg = FindTypeGroupEncounter(mapName, encounterType);
+    tg = FindTypeGroupEncounter(mapName, encounterType);
     if (!tg)
         return FALSE;
 
     // Encounter rate logic (use a default or configurable value, or add to TypeGroupEncounter if needed)
-    u32 encounterRate = 30; // Example default, adjust as needed
+    encounterRate = 30; // Example default, adjust as needed
     if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
         return FALSE;
     if (DoWildEncounterRateTest(encounterRate, FALSE) != TRUE)
@@ -322,13 +332,13 @@ bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
     }
 
     // Choose a random Pokémon from the type group
-    u8 slot = Random() % tg->typeGroupSize;
-    u16 species = tg->typeGroup[slot];
+    slot = Random() % tg->typeGroupSize;
+    species = tg->typeGroup[slot];
     // Set level to lead Pokémon's level +/- 2, clamped to 2-100
-    u8 leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
-    int minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
-    int maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
-    u8 level = minLevel + (Random() % (maxLevel - minLevel + 1));
+    leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+    minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+    maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+    level = minLevel + (Random() % (maxLevel - minLevel + 1));
     if (IsWildLevelAllowedByRepel(level)) {
         GenerateWildMon(species, level, slot);
         StartWildBattle();
