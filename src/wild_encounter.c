@@ -557,62 +557,131 @@ bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
 
 void RockSmashWildEncounter(void)
 {
-    u16 headerIdx = GetCurrentMapWildMonHeaderId();
-    if (headerIdx == HEADER_NONE)
-        gSpecialVar_Result = FALSE;
-    else if (gWildMonHeaders[headerIdx].rockSmashMonsInfo == NULL)
-        gSpecialVar_Result = FALSE;
-    else if (DoWildEncounterRateTest(gWildMonHeaders[headerIdx].rockSmashMonsInfo->encounterRate, TRUE) != TRUE)
-        gSpecialVar_Result = FALSE;
-    else if (TryGenerateWildMon(gWildMonHeaders[headerIdx].rockSmashMonsInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL) == TRUE)
+    const char *mapName = GetCurrentMapName();
+    const TypeGroupEncounter *tg;
+    u32 encounterRate = 30; // Default encounter rate for rock smash
+    u8 slot;
+    u16 species;
+    u8 leadLevel;
+    int minLevel;
+    int maxLevel;
+    u8 level;
+    
+    if (mapName == NULL)
     {
+        gSpecialVar_Result = FALSE;
+        return;
+    }
+    
+    tg = FindTypeGroupEncounter(mapName, ENCOUNTER_LAND);
+    if (tg == NULL)
+    {
+        gSpecialVar_Result = FALSE;
+        return;
+    }
+    
+    if (DoWildEncounterRateTest(encounterRate, TRUE) != TRUE)
+    {
+        gSpecialVar_Result = FALSE;
+        return;
+    }
+    
+    // Choose a random Pokémon from the type group
+    slot = Random() % tg->typeGroupSize;
+    species = tg->typeGroup[slot];
+    
+    // Set level to lead Pokémon's level +/- 2, clamped to 2-100
+    leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+    minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+    maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+    level = minLevel + (Random() % (maxLevel - minLevel + 1));
+    
+    if (IsWildLevelAllowedByRepel(level))
+    {
+        GenerateWildMon(species, level, slot);
         StartWildBattle();
         gSpecialVar_Result = TRUE;
     }
     else
+    {
         gSpecialVar_Result = FALSE;
+    }
 }
 
 bool8 SweetScentWildEncounter(void)
 {
     s16 x, y;
-    u16 headerId;
+    const char *mapName;
+    const TypeGroupEncounter *tg;
+    EncounterType encounterType;
+    u8 slot;
+    u16 species;
+    u8 leadLevel;
+    int minLevel;
+    int maxLevel;
+    u8 level;
 
     PlayerGetDestCoords(&x, &y);
-    headerId = GetCurrentMapWildMonHeaderId();
-    if (headerId != HEADER_NONE)
+    mapName = GetCurrentMapName();
+    
+    if (mapName == NULL)
+        return FALSE;
+    
+    if (MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
     {
-        if (MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
+        encounterType = ENCOUNTER_LAND;
+        
+        if (TryStartRoamerEncounter() == TRUE)
         {
-            if (TryStartRoamerEncounter() == TRUE)
-            {
-                StartRoamerBattle();
-                return TRUE;
-            }
-
-            if (gWildMonHeaders[headerId].landMonsInfo == NULL)
-                return FALSE;
-
-            TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0);
-
-            StartWildBattle();
+            StartRoamerBattle();
             return TRUE;
         }
-        else if (MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_WATER)
+
+        tg = FindTypeGroupEncounter(mapName, encounterType);
+        if (tg == NULL)
+            return FALSE;
+
+        // Choose a random Pokémon from the type group
+        slot = Random() % tg->typeGroupSize;
+        species = tg->typeGroup[slot];
+        
+        // Set level to lead Pokémon's level +/- 2, clamped to 2-100
+        leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+        minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+        maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+        level = minLevel + (Random() % (maxLevel - minLevel + 1));
+        
+        GenerateWildMon(species, level, slot);
+        StartWildBattle();
+        return TRUE;
+    }
+    else if (MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_WATER)
+    {
+        encounterType = ENCOUNTER_WATER;
+        
+        if (TryStartRoamerEncounter() == TRUE)
         {
-            if (TryStartRoamerEncounter() == TRUE)
-            {
-                StartRoamerBattle();
-                return TRUE;
-            }
-
-            if (gWildMonHeaders[headerId].waterMonsInfo == NULL)
-                return FALSE;
-
-            TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, 0);
-            StartWildBattle();
+            StartRoamerBattle();
             return TRUE;
         }
+
+        tg = FindTypeGroupEncounter(mapName, encounterType);
+        if (tg == NULL)
+            return FALSE;
+
+        // Choose a random Pokémon from the type group
+        slot = Random() % tg->typeGroupSize;
+        species = tg->typeGroup[slot];
+        
+        // Set level to lead Pokémon's level +/- 2, clamped to 2-100
+        leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+        minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+        maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+        level = minLevel + (Random() % (maxLevel - minLevel + 1));
+        
+        GenerateWildMon(species, level, slot);
+        StartWildBattle();
+        return TRUE;
     }
 
     return FALSE;
@@ -620,68 +689,110 @@ bool8 SweetScentWildEncounter(void)
 
 bool8 DoesCurrentMapHaveFishingMons(void)
 {
-    u16 headerIdx = GetCurrentMapWildMonHeaderId();
-    if (headerIdx == HEADER_NONE)
+    const char *mapName = GetCurrentMapName();
+    const TypeGroupEncounter *tg;
+    
+    if (mapName == NULL)
         return FALSE;
-    if (gWildMonHeaders[headerIdx].fishingMonsInfo == NULL)
-        return FALSE;
-    return TRUE;
+    
+    tg = FindTypeGroupEncounter(mapName, ENCOUNTER_FISHING);
+    return (tg != NULL);
 }
 
 void FishingWildEncounter(u8 rod)
 {
-    GenerateFishingEncounter(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo, rod);
+    const char *mapName = GetCurrentMapName();
+    const TypeGroupEncounter *tg;
+    u8 slot;
+    u16 species;
+    u8 leadLevel;
+    int minLevel;
+    int maxLevel;
+    u8 level;
+    
+    if (mapName == NULL)
+        return;
+    
+    tg = FindTypeGroupEncounter(mapName, ENCOUNTER_FISHING);
+    if (tg == NULL)
+        return;
+    
+    // Choose a random Pokémon from the type group
+    slot = Random() % tg->typeGroupSize;
+    species = tg->typeGroup[slot];
+    
+    // Set level to lead Pokémon's level +/- 2, clamped to 2-100
+    leadLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+    minLevel = (leadLevel - 2 < 2) ? 2 : leadLevel - 2;
+    maxLevel = (leadLevel + 2 > 100) ? 100 : leadLevel + 2;
+    level = minLevel + (Random() % (maxLevel - minLevel + 1));
+    
+    GenerateWildMon(species, level, slot);
     IncrementGameStat(GAME_STAT_FISHING_CAPTURES);
     StartWildBattle();
 }
 
 u16 GetLocalWildMon(bool8 *isWaterMon)
 {
-    u16 headerId;
-    const struct WildPokemonInfo * landMonsInfo;
-    const struct WildPokemonInfo * waterMonsInfo;
+    const char *mapName = GetCurrentMapName();
+    const TypeGroupEncounter *landTg, *waterTg;
+    u8 slot;
 
     *isWaterMon = FALSE;
-    headerId = GetCurrentMapWildMonHeaderId();
-    if (headerId == HEADER_NONE)
+    
+    if (mapName == NULL)
         return SPECIES_NONE;
-    landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
+    
+    landTg = FindTypeGroupEncounter(mapName, ENCOUNTER_LAND);
+    waterTg = FindTypeGroupEncounter(mapName, ENCOUNTER_WATER);
+    
     // Neither
-    if (landMonsInfo == NULL && waterMonsInfo == NULL)
+    if (landTg == NULL && waterTg == NULL)
         return SPECIES_NONE;
-        // Land Pokemon
-    else if (landMonsInfo != NULL && waterMonsInfo == NULL)
-        return landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
-        // Water Pokemon
-    else if (landMonsInfo == NULL && waterMonsInfo != NULL)
+    // Land Pokemon only
+    else if (landTg != NULL && waterTg == NULL)
+    {
+        slot = Random() % landTg->typeGroupSize;
+        return landTg->typeGroup[slot];
+    }
+    // Water Pokemon only
+    else if (landTg == NULL && waterTg != NULL)
     {
         *isWaterMon = TRUE;
-        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+        slot = Random() % waterTg->typeGroupSize;
+        return waterTg->typeGroup[slot];
     }
     // Either land or water Pokemon
     if ((Random() % 100) < 80)
     {
-        return landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
+        slot = Random() % landTg->typeGroupSize;
+        return landTg->typeGroup[slot];
     }
     else
     {
         *isWaterMon = TRUE;
-        return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+        slot = Random() % waterTg->typeGroupSize;
+        return waterTg->typeGroup[slot];
     }
 }
 
 u16 GetLocalWaterMon(void)
 {
-    u16 headerId = GetCurrentMapWildMonHeaderId();
+    const char *mapName = GetCurrentMapName();
+    const TypeGroupEncounter *waterTg;
+    u8 slot;
 
-    if (headerId != HEADER_NONE)
+    if (mapName == NULL)
+        return SPECIES_NONE;
+    
+    waterTg = FindTypeGroupEncounter(mapName, ENCOUNTER_WATER);
+    
+    if (waterTg != NULL)
     {
-        const struct WildPokemonInfo * waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
-
-        if (waterMonsInfo)
-            return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+        slot = Random() % waterTg->typeGroupSize;
+        return waterTg->typeGroup[slot];
     }
+    
     return SPECIES_NONE;
 }
 
