@@ -322,9 +322,9 @@ const u16 gTypeGroup_MtMoonB1F[] = {
 };
 
 const u16 gTypeGroup_MtMoonB2F[] = {
-    SPECIES_GEODUDE,
-    SPECIES_ONIX,
-    SPECIES_RHYHORN,
+    SPECIES_KABUTO,
+    SPECIES_OMANYTE,
+    SPECIES_AERODACTYL,
 };
 
 const u16 gTypeGroup_DiglettsCaveB1F[] = {
@@ -341,13 +341,10 @@ const u16 gTypeGroup_VictoryRoad1F[] = {
 };
 
 const u16 gTypeGroup_VictoryRoad2F[] = {
-    SPECIES_ABRA,
     SPECIES_DROWZEE,
     SPECIES_EXEGGCUTE,
     SPECIES_MR_MIME,
     SPECIES_JYNX,
-    SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_VictoryRoad3F[] = {
@@ -424,42 +421,27 @@ const u16 gTypeGroup_SafariZoneEast[] = {
 };
 
 const u16 gTypeGroup_SafariZoneNorth[] = {
-    SPECIES_BULBASAUR,
     SPECIES_EKANS,
     SPECIES_NIDORAN_F,
     SPECIES_NIDORAN_M,
-    SPECIES_ZUBAT,
-    SPECIES_ODDISH,
     SPECIES_VENONAT,
     SPECIES_BELLSPROUT,
-    SPECIES_GRIMER,
-    SPECIES_KOFFING,
+    SPECIES_EXEGGCUTE,
 };
 
 const u16 gTypeGroup_SafariZoneWest[] = {
-    SPECIES_CATERPIE,
-    SPECIES_WEEDLE,
-    SPECIES_PARAS,
     SPECIES_VENONAT,
     SPECIES_SCYTHER,
     SPECIES_PINSIR,
+    SPECIES_FARFETCHD,
+    SPECIES_KANGASKHAN,
+    SPECIES_TAUROS,
 };
 
 const u16 gTypeGroup_CeruleanCave1F[] = {
-    SPECIES_PIDGEY,
-    SPECIES_RATTATA,
-    SPECIES_SPEAROW,
-    SPECIES_JIGGLYPUFF,
-    SPECIES_MEOWTH,
-    SPECIES_FARFETCHD,
-    SPECIES_DODUO,
     SPECIES_CHANSEY,
-    SPECIES_KANGASKHAN,
-    SPECIES_TAUROS,
     SPECIES_DITTO,
-    SPECIES_EEVEE,
     SPECIES_PORYGON,
-    SPECIES_SNORLAX,
 };
 
 const u16 gTypeGroup_CeruleanCave2F[] = {
@@ -491,6 +473,9 @@ const u16 gTypeGroup_RockTunnelB1F[] = {
 
 const u16 gTypeGroup_SeafoamIslands1F[] = {
     SPECIES_DRATINI,
+    SPECIES_PSYDUCK,
+    SPECIES_POLIWAG,
+    SPECIES_SLOWPOKE,
 };
 
 const u16 gTypeGroup_SeafoamIslandsB1F[] = {
@@ -501,12 +486,10 @@ const u16 gTypeGroup_SeafoamIslandsB1F[] = {
 };
 
 const u16 gTypeGroup_SeafoamIslandsB2F[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
-    SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
+    SPECIES_SQUIRTLE,
+    SPECIES_KRABBY,
+    SPECIES_OMANYTE,
+    SPECIES_KABUTO,
 };
 
 const u16 gTypeGroup_SeafoamIslandsB3F[] = {
@@ -549,37 +532,35 @@ const u16 gTypeGroup_PokemonTower7F[] = {
 
 const u16 gTypeGroup_PowerPlant[] = {
     SPECIES_PIKACHU,
+    SPECIES_RAICHU,
     SPECIES_MAGNEMITE,
+    SPECIES_MAGNETON,
     SPECIES_VOLTORB,
     SPECIES_ELECTABUZZ,
-    SPECIES_ZAPDOS,
 };
 
 const u16 gTypeGroup_MtEmberExterior[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
+    SPECIES_CHARMELEON,
+    SPECIES_NINETALES,
     SPECIES_GROWLITHE,
     SPECIES_PONYTA,
     SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
 };
 
 const u16 gTypeGroup_MtEmberSummitPath1F[] = {
     SPECIES_CHARMANDER,
     SPECIES_VULPIX,
     SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
+    SPECIES_RAPIDASH,
     SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
 };
 
 const u16 gTypeGroup_MtEmberSummitPath2F[] = {
     SPECIES_CHARMANDER,
     SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
+    SPECIES_ARCANINE,
     SPECIES_PONYTA,
     SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
 };
 
 const u16 gTypeGroup_MtEmberSummitPath3F[] = {
@@ -593,54 +574,44 @@ const u16 gTypeGroup_MtEmberSummitPath3F[] = {
 
 const u16 gTypeGroup_MtEmberRubyPath1F[] = {
     SPECIES_DRATINI,
+    SPECIES_GOLDUCK,
+    SPECIES_POLIWHIRL,
 };
 
 const u16 gTypeGroup_MtEmberRubyPathB1F[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
     SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
+    SPECIES_CHARMELEON,
+    SPECIES_NINETALES,
+    SPECIES_FLAREON,
 };
 
 const u16 gTypeGroup_MtEmberRubyPathB2F[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
-    SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
+    SPECIES_ARBOK,
+    SPECIES_VENOMOTH,
+    SPECIES_MUK,
+    SPECIES_WEEZING,
+    SPECIES_HYPNO,
 };
 
 const u16 gTypeGroup_MtEmberRubyPathB3F[] = {
     SPECIES_DRATINI,
+    SPECIES_DRAGONAIR,
+    SPECIES_DRAGONITE,
 };
 
 const u16 gTypeGroup_MtEmberRubyPathB1FStairs[] = {
-    SPECIES_CHARMANDER,
-    SPECIES_VULPIX,
-    SPECIES_GROWLITHE,
-    SPECIES_PONYTA,
-    SPECIES_MAGMAR,
     SPECIES_MOLTRES,
+    SPECIES_AERODACTYL,
+    SPECIES_ARTICUNO,
+    SPECIES_ZAPDOS,
 };
 
 const u16 gTypeGroup_MtEmberRubyPathB2FStairs[] = {
-    SPECIES_PIDGEY,
-    SPECIES_RATTATA,
-    SPECIES_SPEAROW,
-    SPECIES_JIGGLYPUFF,
-    SPECIES_MEOWTH,
-    SPECIES_FARFETCHD,
-    SPECIES_DODUO,
-    SPECIES_CHANSEY,
-    SPECIES_KANGASKHAN,
-    SPECIES_TAUROS,
-    SPECIES_DITTO,
-    SPECIES_EEVEE,
-    SPECIES_PORYGON,
-    SPECIES_SNORLAX,
+    SPECIES_PIDGEOT,
+    SPECIES_FEAROW,
+    SPECIES_DODRIO,
+    SPECIES_GOLBAT,
+    SPECIES_SCYTHER,
 };
 
 const u16 gTypeGroup_ThreeIslandBerryForest[] = {
@@ -1171,25 +1142,17 @@ const u16 gTypeGroup_SevenIslandSevaultCanyon[] = {
 };
 
 const u16 gTypeGroup_Route1[] = {
-    SPECIES_BULBASAUR,
-    SPECIES_CHARMANDER,
-    SPECIES_SQUIRTLE,
-    SPECIES_EEVEE,
-    SPECIES_PIKACHU,
+    SPECIES_MANKEY,
+    SPECIES_MACHOP,
+    SPECIES_HITMONLEE,
+    SPECIES_HITMONCHAN,
 };
 
 const u16 gTypeGroup_Route2[] = {
     SPECIES_PIDGEY,
     SPECIES_SPEAROW,
-    SPECIES_ZUBAT,
     SPECIES_FARFETCHD,
     SPECIES_DODUO,
-    SPECIES_SCYTHER,
-    SPECIES_AERODACTYL,
-    SPECIES_ARTICUNO,
-    SPECIES_ZAPDOS,
-    SPECIES_MOLTRES,
-    SPECIES_DRATINI,
 };
 
 const u16 gTypeGroup_Route3[] = {
@@ -1199,10 +1162,10 @@ const u16 gTypeGroup_Route3[] = {
     SPECIES_BELLSPROUT,
     SPECIES_EXEGGCUTE,
     SPECIES_TANGELA,
+    SPECIES_EKANS,
 };
 
 const u16 gTypeGroup_Route4[] = {
-    SPECIES_BULBASAUR,
     SPECIES_EKANS,
     SPECIES_NIDORAN_F,
     SPECIES_NIDORAN_M,
@@ -1215,12 +1178,12 @@ const u16 gTypeGroup_Route4[] = {
 };
 
 const u16 gTypeGroup_Route5[] = {
-    SPECIES_SANDSHREW,
-    SPECIES_DIGLETT,
+    SPECIES_GRAVELER,
+    SPECIES_NIDORINO,
+    SPECIES_NIDORINA,
     SPECIES_GEODUDE,
-    SPECIES_ONIX,
-    SPECIES_CUBONE,
-    SPECIES_RHYHORN,
+    SPECIES_VULPIX,
+    SPECIES_GROWLITHE,
 };
 
 const u16 gTypeGroup_Route6[] = {
@@ -1228,7 +1191,6 @@ const u16 gTypeGroup_Route6[] = {
     SPECIES_MAGNEMITE,
     SPECIES_VOLTORB,
     SPECIES_ELECTABUZZ,
-    SPECIES_ZAPDOS,
 };
 
 const u16 gTypeGroup_Route7[] = {
@@ -1237,7 +1199,6 @@ const u16 gTypeGroup_Route7[] = {
     SPECIES_GROWLITHE,
     SPECIES_PONYTA,
     SPECIES_MAGMAR,
-    SPECIES_MOLTRES,
 };
 
 const u16 gTypeGroup_Route8[] = {
@@ -1298,7 +1259,6 @@ const u16 gTypeGroup_Route12[] = {
     SPECIES_MAGNEMITE,
     SPECIES_VOLTORB,
     SPECIES_ELECTABUZZ,
-    SPECIES_ZAPDOS,
 };
 
 const u16 gTypeGroup_Route13[] = {
@@ -1307,8 +1267,6 @@ const u16 gTypeGroup_Route13[] = {
     SPECIES_EXEGGCUTE,
     SPECIES_MR_MIME,
     SPECIES_JYNX,
-    SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_Route14[] = {
@@ -1335,10 +1293,6 @@ const u16 gTypeGroup_Route16[] = {
     SPECIES_FARFETCHD,
     SPECIES_DODUO,
     SPECIES_SCYTHER,
-    SPECIES_AERODACTYL,
-    SPECIES_ARTICUNO,
-    SPECIES_ZAPDOS,
-    SPECIES_MOLTRES,
     SPECIES_DRATINI,
 };
 
@@ -1362,35 +1316,42 @@ const u16 gTypeGroup_Route18[] = {
 };
 
 const u16 gTypeGroup_Route21North[] = {
-    SPECIES_DRATINI,
+    SPECIES_SQUIRTLE,
+    SPECIES_PSYDUCK,
+    SPECIES_POLIWAG,
+    SPECIES_SLOWPOKE,
+    SPECIES_SEEL,
+    SPECIES_SHELLDER,
+    SPECIES_KRABBY,
+    SPECIES_STARYU,
 };
 
 const u16 gTypeGroup_Route21South[] = {
-    SPECIES_PIDGEY,
     SPECIES_RATTATA,
-    SPECIES_SPEAROW,
     SPECIES_JIGGLYPUFF,
     SPECIES_MEOWTH,
-    SPECIES_FARFETCHD,
-    SPECIES_DODUO,
     SPECIES_CHANSEY,
     SPECIES_KANGASKHAN,
     SPECIES_TAUROS,
     SPECIES_DITTO,
-    SPECIES_EEVEE,
     SPECIES_PORYGON,
-    SPECIES_SNORLAX,
 };
 
 const u16 gTypeGroup_Route22[] = {
-    SPECIES_MANKEY,
-    SPECIES_MACHOP,
-    SPECIES_HITMONLEE,
-    SPECIES_HITMONCHAN,
+    SPECIES_RATTATA,
+    SPECIES_MEOWTH,
+    SPECIES_EEVEE,
+    SPECIES_KANGASKHAN,
+    SPECIES_GEODUDE,
+    SPECIES_ONIX,
 };
 
 const u16 gTypeGroup_Route23[] = {
     SPECIES_DRATINI,
+    SPECIES_DRAGONAIR,
+    SPECIES_JYNX,
+    SPECIES_MR_MIME,
+    SPECIES_KINGLER,
 };
 
 const u16 gTypeGroup_Route24[] = {
@@ -1399,17 +1360,14 @@ const u16 gTypeGroup_Route24[] = {
     SPECIES_EXEGGCUTE,
     SPECIES_MR_MIME,
     SPECIES_JYNX,
-    SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_Route25[] = {
-    SPECIES_BULBASAUR,
-    SPECIES_ODDISH,
-    SPECIES_PARAS,
-    SPECIES_BELLSPROUT,
-    SPECIES_EXEGGCUTE,
-    SPECIES_TANGELA,
+    SPECIES_CHARMANDER,
+    SPECIES_VULPIX,
+    SPECIES_GROWLITHE,
+    SPECIES_PONYTA,
+    SPECIES_MAGMAR,
 };
 
 const u16 gTypeGroup_SixIslandAlteringCave[] = {
