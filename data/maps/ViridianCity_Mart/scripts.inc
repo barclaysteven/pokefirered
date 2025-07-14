@@ -65,15 +65,8 @@ ViridianCity_Mart_EventScript_Clerk::
 ViridianCity_Mart_Items::
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_POTION
-	.2byte ITEM_MAX_POTION
 	.2byte ITEM_ANTIDOTE
 	.2byte ITEM_PARALYZE_HEAL
-	.2byte ITEM_MAX_ELIXIR
-	.2byte ITEM_MAX_REVIVE
-	.2byte ITEM_TM43
-	.2byte ITEM_TM46
-	.2byte ITEM_TM47
-	.2byte ITEM_TM50
 	.2byte ITEM_NONE
 	release
 	end
