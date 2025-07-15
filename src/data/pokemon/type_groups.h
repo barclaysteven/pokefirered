@@ -140,7 +140,6 @@ const u16 gTypeGroup_Psychic[] = {
     SPECIES_MR_MIME,
     SPECIES_JYNX,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_Bug[] = {
@@ -193,7 +192,6 @@ const u16 gTypeGroup_Legendary[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_Surf[] = {
@@ -263,7 +261,6 @@ const u16 gTypeGroup_SevenIslandTanobyRuinsScufibChamber[] = {
     SPECIES_MR_MIME,
     SPECIES_JYNX,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_SevenIslandTanobyRuinsRixyChamber[] = {
@@ -353,7 +350,6 @@ const u16 gTypeGroup_VictoryRoad3F[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_PokemonMansion1F[] = {
@@ -391,7 +387,6 @@ const u16 gTypeGroup_PokemonMansionB1F[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_SafariZoneCenter[] = {
@@ -507,7 +502,6 @@ const u16 gTypeGroup_SeafoamIslandsB4F[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_PokemonTower3F[] = {
@@ -569,7 +563,6 @@ const u16 gTypeGroup_MtEmberSummitPath3F[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_MtEmberRubyPath1F[] = {
@@ -1144,7 +1137,7 @@ const u16 gTypeGroup_SevenIslandSevaultCanyon[] = {
 const u16 gTypeGroup_Route1[] = {
     SPECIES_MANKEY,
     SPECIES_MACHOP,
-    SPECIES_MEW,
+    SPECIES_DROWZEE,
     SPECIES_HITMONLEE,
     SPECIES_HITMONCHAN,
 };
@@ -1313,7 +1306,6 @@ const u16 gTypeGroup_Route18[] = {
     SPECIES_MR_MIME,
     SPECIES_JYNX,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 const u16 gTypeGroup_Route21North[] = {
@@ -1377,7 +1369,6 @@ const u16 gTypeGroup_SixIslandAlteringCave[] = {
     SPECIES_ZAPDOS,
     SPECIES_MOLTRES,
     SPECIES_MEWTWO,
-    SPECIES_MEW,
 };
 
 // Example associations (add more as needed)
