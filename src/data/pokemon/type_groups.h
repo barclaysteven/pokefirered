@@ -1144,6 +1144,7 @@ const u16 gTypeGroup_SevenIslandSevaultCanyon[] = {
 const u16 gTypeGroup_Route1[] = {
     SPECIES_MANKEY,
     SPECIES_MACHOP,
+    SPECIES_MEW,
     SPECIES_HITMONLEE,
     SPECIES_HITMONCHAN,
 };
